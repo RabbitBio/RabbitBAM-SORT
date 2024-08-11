@@ -1,6 +1,6 @@
 # RabbitBAM-SORT
 
-Efficient  BAM file sorting with [RabbitBAM](https://github.com/RabbitBio/RabbitBAM) I/O library
+Efficient BAM file sorting with [RabbitBAM](https://github.com/RabbitBio/RabbitBAM) I/O library
 
 ## Dependancy
 
