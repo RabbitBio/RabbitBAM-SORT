@@ -1975,10 +1975,13 @@ static int bam_merge_simple(SamOrder sam_order, char *sort_tag, const char *out,
         free(out_idx_fn);
     }
 
+#ifdef use_write_parallel
+#else
     if (sam_close(fpout) < 0) {
         print_error(cmd, "error closing output file");
         return -1;
     }
+#endif
     return 0;
  mem_fail:
     print_error(cmd, "Out of memory");
@@ -3277,7 +3280,6 @@ int bam_sort_core_ext(SamOrder sam_order, char* sort_tag, int minimiser_kmer,
  #endif
     printf("init cost %lf\n", GetTime() - t0);
     int cntt = 0;
-    long size_info = 0;
     
     t0 = GetTime();
     int ret = -1, res, i, nref, n_files = 0, n_big_files = 0, fn_counter = 0;
@@ -3485,7 +3487,6 @@ int bam_sort_core_ext(SamOrder sam_order, char* sort_tag, int minimiser_kmer,
         for(int ii = 0; ii < res_vec_size; ii++) {
             b = res_vec[ii];
             cntt++;
-            size_info += b->l_data;
        
             int mem_full = 0;
 
@@ -3616,7 +3617,6 @@ int bam_sort_core_ext(SamOrder sam_order, char* sort_tag, int minimiser_kmer,
     //while (reader->getBam1_t(b)) {
     while ((res = sam_read1(fp, header, b)) >= 0) {
         cntt++;
-        size_info += b->l_data;
         int mem_full = 0;
 
         if (k == max_k) {
@@ -3743,7 +3743,6 @@ int bam_sort_core_ext(SamOrder sam_order, char* sort_tag, int minimiser_kmer,
     
 #endif
     printf("read num %d\n", cntt);
-    printf("tot len %d\n", size_info);
 
 
     printf("read and sort1 cost %lf\n", GetTime() - t0);
