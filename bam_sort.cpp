@@ -3851,7 +3851,7 @@ int bam_sort_core(int is_by_qname, const char *fn, const char *prefix, size_t ma
 static void sort_usage(FILE *fp)
 {
     fprintf(fp,
-"Usage: samtools sort [options...] [in.bam]\n"
+"Usage: bam_sort [options...] [in.bam]\n"
 "Options:\n"
 "  -l INT     Set compression level, from 0 (uncompressed) to 9 (best)\n"
 "  -u         Output uncompressed data (equivalent to -l 0)\n"
